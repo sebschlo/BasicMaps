@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
-@interface SEBViewController : UIViewController
-
+@interface SEBViewController : UIViewController <CLLocationManagerDelegate>
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @end

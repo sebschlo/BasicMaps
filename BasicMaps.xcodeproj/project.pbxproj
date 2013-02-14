@@ -23,6 +23,7 @@
 		9EEBEDAA16CB43EC00A1D69F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEBED8516CB43EC00A1D69F /* Foundation.framework */; };
 		9EEBEDB216CB43EC00A1D69F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9EEBEDB016CB43EC00A1D69F /* InfoPlist.strings */; };
 		9EEBEDB516CB43EC00A1D69F /* BasicMapsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEBEDB416CB43EC00A1D69F /* BasicMapsTests.m */; };
+		9EEBEDBF16CB443400A1D69F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEBEDBE16CB443400A1D69F /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		9EEBEDB116CB43EC00A1D69F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9EEBEDB316CB43EC00A1D69F /* BasicMapsTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BasicMapsTests.h; sourceTree = "<group>"; };
 		9EEBEDB416CB43EC00A1D69F /* BasicMapsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BasicMapsTests.m; sourceTree = "<group>"; };
+		9EEBEDBE16CB443400A1D69F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EEBEDBF16CB443400A1D69F /* CoreLocation.framework in Frameworks */,
 				9EEBED8416CB43EC00A1D69F /* UIKit.framework in Frameworks */,
 				9EEBED8616CB43EC00A1D69F /* Foundation.framework in Frameworks */,
 				9EEBED8816CB43EC00A1D69F /* CoreGraphics.framework in Frameworks */,
@@ -87,6 +90,7 @@
 		9EEBED7716CB43EC00A1D69F = {
 			isa = PBXGroup;
 			children = (
+				9EEBEDBE16CB443400A1D69F /* CoreLocation.framework */,
 				9EEBED8916CB43EC00A1D69F /* BasicMaps */,
 				9EEBEDAD16CB43EC00A1D69F /* BasicMapsTests */,
 				9EEBED8216CB43EC00A1D69F /* Frameworks */,
