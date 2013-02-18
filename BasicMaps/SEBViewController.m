@@ -19,10 +19,11 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 
-    // Added a timer so that the first time the app runs and the permission
-    // dialogue pops up, the app will keep trying to startUpdatingLocations until
-    // the user allows it.
-    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(initializeLocationManager:) userInfo:nil repeats:YES];
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    [self.locationManager setDistanceFilter:1000];
+    [self.locationManager startUpdatingLocation];
 }
 
 - (void)didReceiveMemoryWarning
@@ -34,24 +35,10 @@
 
 #pragma mark - CLLocationManagerDelegate methods
 
-- (void)initializeLocationManager:(NSTimer*) timer
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-    if (self.locationManager == Nil)
-    {
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-        [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
-        [self.locationManager setDistanceFilter:1000];
+    if (status == kCLAuthorizationStatusAuthorized) {
         [self.locationManager startUpdatingLocation];
-    }
-
-    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized)
-    {
-        [self.locationManager startUpdatingLocation];
-        if (timer) {
-            [timer invalidate];
-            timer = Nil;
-        }
     }
 }
 
