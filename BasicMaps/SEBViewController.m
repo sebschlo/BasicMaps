@@ -18,12 +18,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
-    [self.locationManager setDistanceFilter:1000];
-    [self.locationManager startUpdatingLocation];
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(initializeLocationManager:) userInfo:nil repeats:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -34,6 +29,30 @@
 
 
 #pragma mark - CLLocationManagerDelegate methods
+
+- (void)initializeLocationManager:(NSTimer*) timer
+{
+    if (self.locationManager == Nil)
+    {
+        NSLog(@"initializing");
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+        [self.locationManager setDistanceFilter:1000];
+        [self.locationManager startUpdatingLocation];
+    }
+
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized)
+    {
+        NSLog(@"starting update location");
+        [self.locationManager startUpdatingLocation];
+        if (timer) {
+            NSLog(@"invalidating timer");
+            [timer invalidate];
+            timer = Nil;
+        }
+    }
+}
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
@@ -55,7 +74,7 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    NSLog(@"Oops.. sh*t hit the fan...");
+    NSLog(@"Oops..");
 }
 
 @end
