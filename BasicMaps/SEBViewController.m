@@ -18,6 +18,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+
+    // Added a timer so that the first time the app runs and the permission
+    // dialogue pops up, the app will keep trying to startUpdatingLocations until
+    // the user allows it.
     [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(initializeLocationManager:) userInfo:nil repeats:YES];
 }
 
@@ -34,7 +38,6 @@
 {
     if (self.locationManager == Nil)
     {
-        NSLog(@"initializing");
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
         [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
@@ -44,10 +47,8 @@
 
     if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized)
     {
-        NSLog(@"starting update location");
         [self.locationManager startUpdatingLocation];
         if (timer) {
-            NSLog(@"invalidating timer");
             [timer invalidate];
             timer = Nil;
         }
