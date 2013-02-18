@@ -8,8 +8,8 @@
 
 #import "SEBViewController.h"
 
+
 @interface SEBViewController ()
-@property (strong, nonatomic) CLLocationManager *locationManager;
 @end
 
 @implementation SEBViewController
@@ -21,7 +21,9 @@
 
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
-    [self.locationManager startMonitoringSignificantLocationChanges];
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    [self.locationManager setDistanceFilter:1000];
+    [self.locationManager startUpdatingLocation];
 }
 
 - (void)didReceiveMemoryWarning
@@ -31,21 +33,29 @@
 }
 
 
+#pragma mark - CLLocationManagerDelegate methods
+
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *location = [locations lastObject];
-    NSLog(@"lat: %f, lon:%f", location.coordinate.latitude, location.coordinate.longitude);
     [self addPinToMapAtLocation:location];
 }
+
 
 - (void)addPinToMapAtLocation:(CLLocation *)location
 {
     MKPointAnnotation *pin = [[MKPointAnnotation alloc] init];
+    MKCoordinateSpan span = {0.03, 0.03};
+    MKCoordinateRegion region = {location.coordinate, span};
     pin.coordinate = location.coordinate;
     pin.title = @"foo";
     pin.subtitle = @"bar";
     [self.mapView addAnnotation:pin];
+    [self.mapView setRegion:region animated:YES];
 }
 
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"Oops.. sh*t hit the fan...");
+}
 
 @end
